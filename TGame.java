@@ -23,6 +23,7 @@ public class TGame extends JFrame implements ActionListener {
     int activeP = 0;
     int count = 0;
     int score[];
+    int flag;
     int Windex[][]={{0,1,2},{0,3,6},{0,4,8},{8,2,5},{8,6,7},{1,4,7},{3,4,5},{2,4,6}};
     TGame(int s[]) 
     {
@@ -30,6 +31,7 @@ public class TGame extends JFrame implements ActionListener {
         setSize(850, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         score=s;
+        flag=0;
         GUIcreate();
         setVisible(true);
 
@@ -98,6 +100,7 @@ public class TGame extends JFrame implements ActionListener {
                     btn[temp[2]].setBackground(Color.red);
                     score[gamechances[temp[0]]]++;
                     JOptionPane.showMessageDialog(this,"Player "+gamechances[temp[0]]+" Wins!!");
+                    flag=1;
                     //JoptionPane.showMessageDialog(this,"SCORES")
                     //System.exit(0);
                     i=JOptionPane.showConfirmDialog(this, "Do you want to play more");
@@ -114,10 +117,21 @@ public class TGame extends JFrame implements ActionListener {
                     }
                 }
             }
-             if(count==9)
+             if((count==9)&&(flag==0))
                 {
                         JOptionPane.showMessageDialog(this, "MATCH DRAW!!!!");
-                        System.exit(0);
+                        i=JOptionPane.showConfirmDialog(this, "Do you want to play more");
+                    if(i==0)
+                    {
+                        this.setVisible(false);
+                        new TGame(score);
+                       
+                    }
+                    else 
+                    {
+                      System.exit(0);
+
+                    }
                 }
                 
 
