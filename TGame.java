@@ -23,6 +23,7 @@ public class TGame extends JFrame implements ActionListener {
     int activeP = 0;
     int count = 0;
     int score[];
+    int flag;
     int Windex[][]={{0,1,2},{0,3,6},{0,4,8},{8,2,5},{8,6,7},{1,4,7},{3,4,5},{2,4,6}};
     TGame(int s[]) 
     {
@@ -30,30 +31,33 @@ public class TGame extends JFrame implements ActionListener {
         setSize(850, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         score=s;
+        flag=0;
         GUIcreate();
         setVisible(true);
 
     }
 
     public void GUIcreate() {
-        this.getContentPane().setBackground(Color.yellow);
+        this.getContentPane().setBackground(Color.orange);
         this.setLayout(new BorderLayout());
         heading = new JLabel("TIC TAC TOE");
         heading2=new JLabel("SCOREBOARD    PLAYER 0: "+score[0]+"     PLAYER 1: "+score[1]);
         heading.setFont(font);
-        heading.setForeground(Color.green);
+        heading.setForeground(Color.yellow);
         this.add(heading, BorderLayout.NORTH);
         heading.setHorizontalAlignment(SwingConstants.CENTER);
         heading2.setFont(font);
-        heading2.setForeground(Color.black);
+        heading2.setForeground(Color.blue);
         this.add(heading2, BorderLayout.SOUTH);
         heading2.setHorizontalAlignment(SwingConstants.CENTER);
         // panel section
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(3, 3));
-        for (int i = 1; i <= 9; i++) {
+        for (int i = 1; i <= 9; i++) 
+          {
             JButton bt = new JButton();
-            bt.setBackground(Color.cyan);
+            bt.setBackground(Color.magenta);
+            //bt.setBackground(Color.decode("#2dd4ff"));
             bt.setFont(font);
             mainPanel.add(bt);
              btn[i-1]=bt;
@@ -76,14 +80,16 @@ public class TGame extends JFrame implements ActionListener {
         {
             if (activeP == 1) 
             {
-                currentB.setText("X");
+                currentB.setIcon(new ImageIcon("image.png/X2.png"));
+                //currentB.setText("X");
                 activeP = 0;
                 gamechances[n] = 1;
                 count++;
                 
             } else 
             {
-                currentB.setText("O ");
+                currentB.setIcon(new ImageIcon("image.png/O2.png"));
+                //currentB.setText("O ");
                 activeP = 1;
                 gamechances[n] = 0;
                 count++;
@@ -93,11 +99,12 @@ public class TGame extends JFrame implements ActionListener {
             {
                 if(gamechances[temp[0]]==gamechances[temp[1]]&&(gamechances[temp[0]]==gamechances[temp[2]])&&(gamechances[temp[0]]!=2))
                 {
-                    btn[temp[0]].setBackground(Color.red);
-                    btn[temp[1]].setBackground(Color.red);
-                    btn[temp[2]].setBackground(Color.red);
+                    btn[temp[0]].setBackground(Color.GREEN);
+                    btn[temp[1]].setBackground(Color.GREEN);
+                    btn[temp[2]].setBackground(Color.GREEN);
                     score[gamechances[temp[0]]]++;
                     JOptionPane.showMessageDialog(this,"Player "+gamechances[temp[0]]+" Wins!!");
+                    flag=1;
                     //JoptionPane.showMessageDialog(this,"SCORES")
                     //System.exit(0);
                     i=JOptionPane.showConfirmDialog(this, "Do you want to play more");
@@ -114,10 +121,21 @@ public class TGame extends JFrame implements ActionListener {
                     }
                 }
             }
-             if(count==9)
+             if((count==9)&&(flag==0))
                 {
                         JOptionPane.showMessageDialog(this, "MATCH DRAW!!!!");
-                        System.exit(0);
+                        i=JOptionPane.showConfirmDialog(this, "Do you want to play more");
+                    if(i==0)
+                    {
+                        this.setVisible(false);
+                        new TGame(score);
+                       
+                    }
+                    else 
+                    {
+                      System.exit(0);
+
+                    }
                 }
                 
 
