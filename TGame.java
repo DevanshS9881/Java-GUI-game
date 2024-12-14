@@ -4,7 +4,7 @@
 //import java.awt.GridLayout;
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
-import java.awt.*;
+import java.awt.*; // awt is GUI toolkit in JAVA
 import java.awt.event.*;
 //import javax.swing.JButton;
 //import javax.swing.JFrame;
